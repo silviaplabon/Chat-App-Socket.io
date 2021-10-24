@@ -18,9 +18,8 @@ const ChatBoardScreen = () => {
         }
     ]
     const data = usersData.find(data => data.name == auth.displayName);
-
-
     console.log(data, "data")
+    
     return (
         <View style={{backgroundColor:'white',flex:1,}}>
             <FlatList

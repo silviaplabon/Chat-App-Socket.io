@@ -8,8 +8,19 @@ import { addMessage, toggleMessageDelivered, toggleMessageSeen } from '../../../
 import { updateRoomReceiverStatus } from '../../../Redux/Reducer/ReceiverProfileReducer';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { updateUserTyping } from '../../../Redux/Reducer/UserTypingReducer';
+import { v4 as uuidv4 } from 'uuid';
+
+export const userIsTyping = (key, name) => {
+    const data = { name: name, state: true };
+    socket.emit('typing', data);
+    clearTimeout(timeout)
+    timeout = setTimeout(function () {
+        timeoutFunction(name)
+    }, 2000)
+}
+
 let socket, timeout, socketUser;
-const ENDPOINT = "http://192.168.0.110:4000";
+const ENDPOINT = "http://192.168.1.107:4000";
 
 
 const ChatScreen = () => {
@@ -30,7 +41,8 @@ const ChatScreen = () => {
     useEffect(() => {
         socket = io(ENDPOINT);
         const name = roomInfo.username;
-        const room = roomInfo.userroom;
+        const room =Date.now()
+        
         socket.emit('join', { name, room }, (error) => {
             if (error) {
                 alert(error);
@@ -53,9 +65,10 @@ const ChatScreen = () => {
         socket.on('message', (message) => {
             const options = { id: message.id, user: message.user, text: message.text, delivered: false, sendTime: message.sendTime }
             dispatch(addMessage({ id: message.id, user: message.user, text: message.text, delivered: false, sendTime: message.sendTime }))
-            if (message.user !== auth.displayName) {
+            const markedSeenOptions = { id: message.id, user: message.user, text: message.text, delivered: false, sendTime: message.sendTime, userId:socketUserId}
+            if (message.user == auth.displayName) {
                 socket.emit('received', options);
-                socket.emit('markSeen', options);
+                socket.emit('markSeen', markedSeenOptions);
             }
         });
     }, [])
@@ -146,14 +159,7 @@ const ChatScreen = () => {
         const data = { name: name, state: false };
         socket.emit("typing", data);
     }
-    const userIsTyping = (key, name) => {
-        const data = { name: name, state: true };
-        socket.emit('typing', data);
-        clearTimeout(timeout)
-        timeout = setTimeout(function () {
-            timeoutFunction(name)
-        }, 2000)
-    }
+ 
     const backgroundImage = { uri: 'https://cdn.wallpapersafari.com/27/32/jt4AoG.jpg' };
 
 

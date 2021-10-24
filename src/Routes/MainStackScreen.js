@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { useSelector, useDispatch } from 'react-redux';
-import { navigationRef } from '../RootNavigation/RootNavigation';
 import HomeScreen from '../components/HomeScreen/HomeScreen';
 import EStyleSheet from 'react-native-extended-stylesheet';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';

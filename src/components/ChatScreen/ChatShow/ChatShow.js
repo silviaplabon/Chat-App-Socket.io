@@ -5,13 +5,13 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import EStyleSheet from 'react-native-extended-stylesheet';
 
 const ChatShow = (props) => {
-    const { delivered, id, text, user, seen,sendTime } = props.item;
+    const { delivered, id, text, user, seen, sendTime } = props.item;
     let isSentByCurrentUser = false;
     if (props.item.user === props.name) {
         isSentByCurrentUser = true;
     }
     const dispatch = useDispatch();
-   
+
 
 
     return (
@@ -23,14 +23,22 @@ const ChatShow = (props) => {
                             <Text style={{ color: 'black', textAlign: 'left', fontSize: 16, alignItems: 'center' }}>{text}
                                 <View style={{ textAlign: 'right', height: 20, width: 20, textAlign: 'right', borderRadius: 10, marginTop: 10 }}>
                                     {
-                                        (delivered == true) && seen == false ?
-                                            <Icon name="md-checkmark-circle-outline" size={20} color="white" />
-                                            : <Icon name="md-checkmark-circle-outline" size={20} color="red" />
+                                        (delivered == true && seen == false) &&
+                                        <Icon name="md-checkmark-circle-outline" size={20} color="white" />
                                     }
-                              
-                                </View>                    
+                                    {
+                                        (delivered == false && seen == false) &&
+                                        <Icon name="md-checkmark-circle-outline" size={20} color="blue" />
+                                    }
+                                     {
+                                        (delivered == true && seen == true) &&
+                                        <Icon name="md-checkmark-circle-outline" size={20} color="red" />
+                                    }
+
+
+                                </View>
                             </Text>
-                            <Text style={{ color: 'black',  fontSize: 11, textAlign:'right' }}>{sendTime}</Text>
+                            <Text style={{ color: 'black', fontSize: 11, textAlign: 'right' }}>{sendTime}</Text>
                         </View>
 
 
@@ -40,7 +48,7 @@ const ChatShow = (props) => {
                     <View style={{ alignItems: 'flex-start', marginLeft: 10 }}>
                         <View style={[styles.textBox, { backgroundColor: '#34B7F1', maxWidth: '80%', borderRadius: 10, marginRight: 10, marginTop: 5 }]}>
                             <Text style={{ color: 'black', textAlign: 'right', fontSize: 16, padding: 5 }}>{text}</Text>
-                            <Text style={{ color: 'black',  fontSize: 11, textAlign:'right',margin:3,}}>{sendTime}</Text>
+                            <Text style={{ color: 'black', fontSize: 11, textAlign: 'right', margin: 3, }}>{sendTime}</Text>
                         </View>
 
                     </View>

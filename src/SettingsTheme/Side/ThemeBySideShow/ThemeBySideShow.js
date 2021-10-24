@@ -1,6 +1,6 @@
 import React from 'react';
-import { Image, View, Text, Button, TouchableOpacity } from 'react-native';
-import EStyleSheet from 'react-native-extended-stylesheet';
+import { Image, View, Text, Button, TouchableOpacity,StyleSheet } from 'react-native';
+// import EStyleSheet from 'react-native-extended-stylesheet';
 import Card from '../../../EmotionComponents/Card'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 import { useDispatch } from 'react-redux';
@@ -16,12 +16,12 @@ const ThemeBySideShow = (props) => {
         dispatch(updateButtonBgColor(buttonColor));
         dispatch(updateThemeBgColor(themeColor))
         dispatch(updateDrawerBgColor(drawerColor));
-        EStyleSheet.build({
-            $textColor: textColor,
-            $buttonColor:buttonColor,
-            $drawerColor:drawerColor,
-            $themeColor:themeColor
-        });
+        // EStyleSheet.build({
+        //     $textColor: textColor,
+        //     $buttonColor:buttonColor,
+        //     $drawerColor:drawerColor,
+        //     $themeColor:themeColor
+        // });
     }
 
     return (
@@ -40,7 +40,7 @@ const ThemeBySideShow = (props) => {
     );
 };
 
-const styles = EStyleSheet.create({
+const styles = StyleSheet.create({
     name: {
         padding: 9,
     },
